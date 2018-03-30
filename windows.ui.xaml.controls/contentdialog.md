@@ -200,7 +200,7 @@ This example shows how to create and use a custom dialog (`SignInContentDialog`)
         <PasswordBox Name="passwordTextBox" Header="Password" IsPasswordRevealButtonEnabled="True"/>
         <CheckBox Name="saveUserNameCheckBox" Content="Save user name"/>
 
-        <TextBlock x:Name="errorTextBlock" Style="{StaticResource ControlContextualInfoTextBlockStyle}"/>
+        <TextBlock x:Name="errorTextBlock" Foreground="Red"/>
 
         <!-- Content body -->
         <TextBlock Name="body" Style="{StaticResource MessageDialogContentStyle}" TextWrapping="Wrap">
@@ -271,6 +271,19 @@ namespace ExampleApp
                 this.Result = SignInResult.SignInFail;
             }
             deferral.Complete();
+        }
+        
+        private async bool SomeAsyncSignInOperation()
+        {
+            SetInputControlState(false);
+            // await async method            
+            SetInputControlState(true);
+        }
+        
+        private void SetInputControlState(bool Enabled)
+        {
+            IsPrimaryButtonEnabled = Enabled;
+            
         }
 
         private void ContentDialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
